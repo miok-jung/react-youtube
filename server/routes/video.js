@@ -5,11 +5,12 @@ const router = express.Router();
 const { auth } = require("../middleware/auth");
 const path = require('path');
 const multer = require('multer');
+var ffmpeg = require('fluent-ffmpeg');
 
 // STORAGE MULTER CONFIG
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/");
+        cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}_${file.originalname}`);
@@ -40,4 +41,41 @@ router.post('/uploadfiles', (req, res) => {
     })
 })
 
+router.post('/thumbnail', (req, res) => {
+    // 썸네일 생성 + 비디오 러닝타임 가져오기
+
+    // 정의
+    let filePath = "";
+    let fileDuration = "";
+
+    // 비디오 정보 가져오기
+    ffmpeg.ffprobe(req.body.url, function (err, metadata) {
+        console.dir(metadata);
+        console.log(metadata.format.duration);
+        fileDuration = metadata. format.duration;
+    });
+
+    // 썸네일 생성
+    ffmpeg(req.body.url) // uploads 저장경로를 가져온다.
+    .on('filenames', function (filenames) { // filenames 생성
+        console.log('Will generate ' + filenames.join(', '));
+        console.log(filenames);
+
+        filePath = "uploads/thumbnails/" + filenames[0];
+    })
+    .on('end', function () { // 썸네일 생성 후 해야할 일
+        console.log('Screenshots taken');
+        return res.json({ success: true, url: filePath, fileDuration: fileDuration }); // 썸네일 생성 성공시 클라이언트로 넘어가는 데이터
+    })
+    .on('error', function (err) { // 에러가 발생할 때 해야할 일
+        console.error(err);
+        return res.json({ success: false, err });
+    })
+    .screenshots({ // 옵션
+        count: 1, // 3개의 썸네일을 찍을 수 있다.
+        folder: 'uploads/thumbnails', // 썸네일 저장 경로로 폴더를 경로에 맞게 생성해준다.
+        size: '1280x720', // 썸네일 사이즈
+        filename: 'thumbnail-%b.png' // thumbnail-파일원래이름(확장자를 제거한)상태로 저장이 된다.
+    })
+})
 module.exports = router;

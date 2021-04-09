@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const { Video } = require("../models/Video");
+const { Video } = require("../models/Video");
 
 const { auth } = require("../middleware/auth");
 const path = require('path');
@@ -74,8 +74,18 @@ router.post('/thumbnail', (req, res) => {
     .screenshots({ // 옵션
         count: 1, // 3개의 썸네일을 찍을 수 있다.
         folder: 'uploads/thumbnails', // 썸네일 저장 경로로 폴더를 경로에 맞게 생성해준다.
-        size: '1280x720', // 썸네일 사이즈
+        size: '320x240', // 썸네일 사이즈
         filename: 'thumbnail-%b.png' // thumbnail-파일원래이름(확장자를 제거한)상태로 저장이 된다.
     })
 })
+
+router.post('/uploadVideo', (req, res) => {
+    // 비디오 정보들을 저장한다.
+    const video = new Video(req.body) // 클라이언트에 보낸 모든 정보가 저장된다. 즉, VideoUploadPage.js에 있는 variables값이 여기에 다 저장이 된다.
+    video.save((err, doc) => { // MongoDB method로 저장을 시켜준다.
+        if(err) return res.json({ success: false, err })
+        res.status(200).json({ success: true })
+    }) 
+})
+
 module.exports = router;

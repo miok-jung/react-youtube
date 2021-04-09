@@ -15,3 +15,8 @@ Date : 21. 04. 02
 - video를 올리면 thumbnail을 만들어주는 기능
 - [Post a link to Tistory : ffmpeg install Windows](https://jnarin-development-story.tistory.com/109)
 - [Post a link to Tistory : Create Thumbnail](https://jnarin-development-story.tistory.com/110)
+
+4. 210409
+
+- video 서버 업로드 완료
+- [Post a link to Tistory : upload MongoDB server](https://jnarin-development-story.tistory.com/112)

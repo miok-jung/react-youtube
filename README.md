@@ -20,3 +20,7 @@ Date : 21. 04. 02
 
 - video 서버 업로드 완료
 - [Post a link to Tistory : upload MongoDB server](https://jnarin-development-story.tistory.com/112)
+
+5. 210412
+
+- 렌딩페이지에 서버에 올린 비디오 리스트 보여주기

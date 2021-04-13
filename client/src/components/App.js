@@ -8,6 +8,7 @@ import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer"
 import VideoUploadPage from './views/VideoUploadPage/VideoUploadPage';
+import VideoDetailPage from './views/VideoDetailPage/VideoDetailPage';
 
 //null   누구나 페이지에 갈 수 있다.
 //true   로그인 한 사람만이 들어갈 수 있는 페이지
@@ -23,6 +24,8 @@ function App() {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/video/upload" component={Auth(VideoUploadPage, true)} />
+          <Route exact path="/video/:videoId" component={Auth(VideoDetailPage, null)} />
+          
         </Switch>
       </div>
       <Footer />

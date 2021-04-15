@@ -28,3 +28,8 @@ Date : 21. 04. 02
 6. 210413
 
 - getVideoDetail 만들기
+
+7. 210415
+
+- 디테일 비디오 만들기
+- [Post a link to Tistory : create SideVideo.js](https://jnarin-development-story.tistory.com/116)

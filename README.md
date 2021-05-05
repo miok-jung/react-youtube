@@ -25,3 +25,12 @@ Date : 21. 04. 02
 - 구독 기능 추가하기
 - [Post a link to Tistory : create subscribe on the Client](https://jnarin-development-story.tistory.com/122)
 - [Post a link to Tistory : create subscribe on the Server](https://jnarin-development-story.tistory.com/121)
+  <br />
+- 구독한 사람의 페이지 구현
+- [Post a link to Tistory : create subscribe page](https://jnarin-development-story.tistory.com/124)
+
+## 2021. 05
+
+- 덧글 기능 콘솔에서 확인하기
+- [Tistory 덧글 기능 콘솔 확인하기 - front](https://jnarin-development-story.tistory.com/126)
+- [Tistory 덧글 기능 콘솔 확인하기 - backend](https://jnarin-development-story.tistory.com/125)

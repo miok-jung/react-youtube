@@ -6,18 +6,24 @@ import { Card, Avatar, Col, Typography, Row } from "antd";
 const { Title } = Typography;
 const { Meta } = Card;
 
-function LandingPage() {
+function SubscriptionPage() {
   const [Video, setVideo] = useState([]);
 
   useEffect(() => {
-    Axios.get("/api/video/getVideos").then((response) => {
-      if (response.data.success) {
-        console.log(response.data);
-        setVideo(response.data.videos);
-      } else {
-        alert("비디오 가져오기를 실패 했습니다.");
+    //모든 것을 가져올 때는 props가 필요가 없지만, 특정 값을 가져올 때는 props값을 넣어줘야 해 variable이 필요하다
+    const subscriptionVariables = {
+      userFrom: localStorage.getItem("userId"),
+    };
+    Axios.post("/api/video/getSubscriptionVideos", subscriptionVariables).then(
+      (response) => {
+        if (response.data.success) {
+          console.log(response.data);
+          setVideo(response.data.videos);
+        } else {
+          alert("비디오 가져오기를 실패 했습니다.");
+        }
       }
-    });
+    );
   }, []);
 
   const renderCards = Video.map((video, index) => {
@@ -25,8 +31,8 @@ function LandingPage() {
     var seconds = Math.floor(video.duration - minutes * 60);
 
     return (
-      <Col lg={6} md={8} xs={24} key={index}>
-        <div style={{ position: "relative" }} key={index}>
+      <Col key={index} lg={6} md={8} xs={24}>
+        <div style={{ position: "relative" }}>
           <a href={`/video/${video._id}`}>
             <img
               style={{ width: "100%" }}
@@ -72,11 +78,11 @@ function LandingPage() {
 
   return (
     <div style={{ width: "85%", margin: "3rem auto" }}>
-      <Title level={2}>Recommended</Title>
+      <Title level={2}>Subscription</Title>
       <hr />
       <Row gutter={[32, 16]}>{renderCards}</Row>
     </div>
   );
 }
 
-export default LandingPage;
+export default SubscriptionPage;

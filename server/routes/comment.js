@@ -19,4 +19,13 @@ router.post("/saveComment", (req, res) => {
   });
 });
 
+router.post("/getComments", (req, res) => {
+  Comment.find({ postId: req.body.videoId })
+    .populate("writer")
+    .exec((err, result) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).json({ success: true, result });
+    });
+});
+
 module.exports = router;

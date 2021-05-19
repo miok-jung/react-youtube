@@ -9,6 +9,7 @@ function VideoDetailPage(props) {
   const videoId = props.match.params.videoId;
   const videoVariable = { videoId: props.match.params.videoId };
   const [VideoDetail, setVideoDetail] = useState([]);
+  const [Comments, setComments] = useState([]);
 
   useEffect(() => {
     Axios.post("/api/video/getVideoDetail", videoVariable).then((response) => {
@@ -18,7 +19,19 @@ function VideoDetailPage(props) {
         alert("비디오 정보를 가져오기 실패하였습니다.");
       }
     });
+
+    Axios.post("/api/comment/getComments", videoVariable).then((response) => {
+      if (response.data.success) {
+        setComments(response.data.Comments);
+      } else {
+        alert("덧글에 대한 정보를 가져오는 것에 실패를 하였습니다.");
+      }
+    });
   }, []);
+
+  const refreshFunction = (newComment) => {
+    setComments(Comments.concat(newComment));
+  };
 
   if (VideoDetail.writer) {
     const subscribeButton = VideoDetail.writer._id !==
@@ -46,7 +59,11 @@ function VideoDetailPage(props) {
               />
             </List.Item>
             {/* Comment */}
-            <Comment postId={videoId} />
+            <Comment
+              refreshFunction={refreshFunction}
+              commentLists={Comments}
+              postId={videoId}
+            />
           </div>
         </Col>
         {/* 사이드 비디오 템플릿 */}

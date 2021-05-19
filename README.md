@@ -1,4 +1,9 @@
-Date : 21. 04. 02
+Date : 21. 04. 02 ~
+
+## Skills
+
+Front : JavaScript, ReactJS
+back : NodeJS, Express, MongoDB
 
 ## 2021. 04
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { useSelector } from "react-redux";
+import SingleComment from "./SingleComment";
 
 function Comment(props) {
   const [commentValue, setcommentValue] = useState("");
@@ -21,7 +22,8 @@ function Comment(props) {
     };
     Axios.post("/api/comment/saveComment", variables).then((response) => {
       if (response.data.success) {
-        console.log(response.data.result);
+        setcommentValue("");
+        props.refreshFunction(response.data.result);
       } else {
         alert("덧글 저장하지 못하였습니다.");
       }
@@ -33,6 +35,19 @@ function Comment(props) {
       <p>Replies</p>
       <hr />
       {/* Comment Lists */}
+      {props.commentLists &&
+        props.commentLists.map(
+          (comment, index) =>
+            !comment.responseTo && (
+              <SingleComment
+                key={index}
+                refreshFunction={refreshFunction}
+                comment={comment}
+                postId={props.postId}
+              />
+            )
+        )}
+
       {/* Root Comment Form */}
       <form style={{ display: "flex" }} onSubmit={onSubmit}>
         <textarea

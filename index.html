@@ -8,12 +8,15 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    const Title = (
-      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-        Hello I'm a span
-      </h3>
-    );
-    const Button = (
+    function Title() {
+      return (
+        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+          Hello I'm a span
+        </h3>
+      );
+    }
+    // 컴포넌트는 html과 비교를 위해 대문자로 작성한다.
+    const Button = () => (
       <button
         style={{ backgroundColor: "red" }}
         onClick={() => console.log("I'm Clicked")}
@@ -22,7 +25,12 @@
       </button>
     );
 
-    const container = React.createElement("div", null, [Title, Button]);
-    ReactDOM.render(container, root);
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+    ReactDOM.render(<Container />, root);
   </script>
 </html>

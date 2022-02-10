@@ -19,6 +19,16 @@ const Content = () => {
 
 - ES6부터 화살표 함수가 생기면서 선언법을 더욱 간소화 시켰다.
 
+useState
+
+```js
+let [counter, modifier] = React.useState(10);
+console.log(counter);
+// [10, f]의 배열로 반환된다.
+```
+
+useState는 초기값과 함수를
+
 ### Record
 
 day: 22. 02. 07 props, JSX 정의 정리

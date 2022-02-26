@@ -1,28 +1,45 @@
-import Button from "./Button";
-import styles from "./App.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setValue((prev) => prev + 1);
-  const onChange = (e) => setKeyword(e.target.value);
-  // console.log("I run all the time");
-  useEffect(() => {
-    console.log("Counter Change");
-  }, [counter]);
-  useEffect(() => {
-    console.log("Keyword Change");
-  }, [keyword]);
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const onChange = (e) => {
+    setToDo(e.target.value);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (toDo === "") {
+      return;
+    }
+    setToDo("");
+    setToDos((currentArray) => [toDo, ...currentArray]);
+  };
 
   return (
     <div>
-      <h1 className={styles.title}>{counter}</h1>
-      <input type="text" onChange={onChange} placeholder="keyword" />
-      {/* <Button text={"Continue"} /> */}
-      <button onClick={onClick}>Click me</button>
+      <h1>My To Dos({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          type="text"
+          value={toDo}
+          placeholder="Write your to do..."
+        />
+        <button>Add To Do</button>
+      </form>
+      <hr />
+      <ul>
+        {toDos.map((item, id) => {
+          return (
+            <>
+              <li key={id}>{item}</li>
+              <button>Delete</button>
+              <button>Modify</button>
+            </>
+          );
+        })}
+      </ul>
     </div>
   );
 }
-
 export default App;

@@ -14,10 +14,9 @@ function Detail() {
         `https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`
       )
     ).json();
-    setLoading(false);
     setMovie(json.data.movie);
+    setLoading(false);
   };
-
   return (
     <div>
       {loading ? (

@@ -1,5 +1,5 @@
 {
-  "name": "react-youtube",
+  "name": "study",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://miok-jung.github.io/react-youtube"
+  "homepage": "https://miok-jung.github.io/study"
 }
